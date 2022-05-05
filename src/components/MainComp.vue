@@ -7,7 +7,7 @@
             </div>
         </div>
         </section>
-            <div class="d-flex min-vh-100 align-item-center justify-content-center" v-else>
+            <div class="d-flex min-vh-100 align-items-center justify-content-center" v-else>
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
     </main>
