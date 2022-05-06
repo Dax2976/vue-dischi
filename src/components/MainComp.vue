@@ -3,7 +3,8 @@
         <section v-if="!loading">
         <div class="container pt-4">
             <div class="row text-center justify-content-between">
-                <AlbumComp :song="item" v-for="(item, index) in songs" :key="index" class="w18"/>
+                <GenderBox @selectionChange="getSelectionValue"/>
+                <AlbumComp :song="item" v-for="(item, index) in AlbumGender()" :key="index" class="w18"/>
             </div>
         </div>
         </section>
@@ -19,20 +20,24 @@
 
 <script>
 import AlbumComp from '@/components/AlbumComp.vue'
+import GenderBox from '@/components/BarComp.vue'
 import axios from 'axios'
+
 export default {
     name:'MainComp',
     components:{
-        AlbumComp
+        AlbumComp,
+        GenderBox
     },
     data(){
         return{
             songs:[],
             loading: true,
-            error: false
+            error: false,
+            selectionValue:''
         }
     },
-    mounted(){
+    created: function(){
         let timeStart = Date.now()
         axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((response)  => {
             this.songs = response.data.response;
@@ -49,6 +54,20 @@ export default {
             console.log(error)
             this.error = `Sorry This Page is UnderMaintace ${error}`
         })
+    },
+    methods:{
+      getSelectionValue(selectedValue){
+        this.selectionValue = selectedValue
+      },
+      AlbumGender(){
+        if(this.selectionValue === ''){
+          return this.songs
+        }
+        const filteredArray = this.songs.filter((album) => {
+          return album.genre === this.selectionValue
+        })
+        return filteredArray
+      }
     }
 }
 </script>

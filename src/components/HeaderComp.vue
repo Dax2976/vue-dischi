@@ -16,7 +16,15 @@
 
 <script>
 export default {
-    name:'HeaderComp'
+    name:'HeaderComp',
+    props:{
+        GenExit: Array
+    },
+    data(){
+        return {
+            GenSelected:''
+        }
+    }
 }
 </script>
 
